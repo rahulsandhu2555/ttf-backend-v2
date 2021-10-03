@@ -58,11 +58,11 @@ const createCelebPage = (request, response) => {
     [
       name,
       url,
-      profession,
+      JSON.stringify(profession),
       dob,
-      physical_body_info,
-      family_info,
-      education,
+      JSON.stringify(physical_body_info),
+      JSON.stringify(family_info),
+      JSON.stringify(education),
       category,
     ],
     (error, results) => {
