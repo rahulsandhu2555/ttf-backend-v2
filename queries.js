@@ -19,7 +19,7 @@ const getCelebByName = (request, response) => {
   const name = request.params.name;
 
   pool.query(
-    "SELECT * FROM celebrities WHERE name = $1",
+    "SELECT * FROM celebrities WHERE url = $1",
     [name],
     (error, results) => {
       if (error) {
@@ -69,7 +69,7 @@ const createCelebPage = (request, response) => {
       if (error) {
         throw error;
       }
-      response.status(201).send(`User added with ID: ${results.insertId}`);
+      response.status(200).send(`Celeb added`);
     }
   );
 };
@@ -89,7 +89,7 @@ const createUser = (request, response) => {
 };
 
 const updateCelebPage = (request, response) => {
-  const nameId = request.params.name;
+  const urlId = request.params.name;
   const {
     name,
     url,
@@ -102,23 +102,23 @@ const updateCelebPage = (request, response) => {
   } = request.body;
 
   pool.query(
-    "UPDATE celebrities SET name = $1, url = $2, profession = $3, dob = $4, physical_body_info = $5,family_info = $6, education = $7, category = $8 WHERE name = $9",
+    "UPDATE celebrities SET name = $1, url = $2, profession = $3, dob = $4, physical_body_info = $5,family_info = $6, education = $7, category = $8 WHERE url = $9",
     [
-      name,
-      url,
-      profession,
-      dob,
-      physical_body_info,
-      family_info,
-      education,
-      category,
-      nameId,
+        name,
+        url,
+        JSON.stringify(profession),
+        dob,
+        JSON.stringify(physical_body_info),
+        JSON.stringify(family_info),
+        JSON.stringify(education),
+        category,
+      urlId,
     ],
     (error, results) => {
       if (error) {
         throw error;
       }
-      response.status(200).send(`Celeb modified with ID: ${nameId}`);
+      response.status(200).send(`Celeb modified`);
     }
   );
 };
@@ -151,7 +151,7 @@ const deleteCeleb = (request, response) => {
   const name = request.params.name;
 
   pool.query(
-    "DELETE FROM celebrities WHERE name = $1",
+    "DELETE FROM celebrities WHERE url = $1",
     [name],
     (error, results) => {
       if (error) {
