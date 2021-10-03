@@ -151,7 +151,7 @@ const deleteCeleb = (request, response) => {
   const name = request.params.name;
 
   pool.query(
-    "DELETE FROM celebrities WHERE name = $1",
+    "DELETE FROM celebrities WHERE url = $1",
     [name],
     (error, results) => {
       if (error) {
