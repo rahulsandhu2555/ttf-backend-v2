@@ -53,7 +53,7 @@ const createCelebPage = (request, response) => {
   } = request.body;
 
   pool.query(
-    "INSERT INTO celebrities (name, url, profile_pic,  citizenship,    gender,    type,    languages,    birth,    personal,    religion,    hobbies,    profession,    family,    education,    relationships,    marriages,    relatives,    facts,    category) VALUES ($1, $2, $3, $4, $5, $6 , $7, $8)",
+    "INSERT INTO celebrities (name, url, profile_pic,  citizenship,    gender,    type,    languages,    birth,    personal,    religion,    hobbies,    profession,    family,    education,    relationships,    marriages,    relatives,    facts,    category) VALUES ($1, $2, $3, $4, $5, $6 , $7, $8, $9, $10, $11, $12,$13,$14,$15,$16,$17,$18,$19)",
     [
       name,
       url,
