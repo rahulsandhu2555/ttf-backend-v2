@@ -29,40 +29,50 @@ const getCelebByName = (request, response) => {
     }
   );
 };
-
-const getUserById = (request, response) => {
-  const id = parseInt(request.params.id);
-
-  pool.query("SELECT * FROM users WHERE id = $1", [id], (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).json(results.rows);
-  });
-};
-// id, name, url, profession, dob, physical_body_info,family_info, education, category
 const createCelebPage = (request, response) => {
   const {
     name,
     url,
+    profile_pic,
+    citizenship,
+    gender,
+    type,
+    languages,
+    birth,
+    personal,
+    religion,
+    hobbies,
     profession,
-    dob,
-    physical_body_info,
-    family_info,
+    family,
     education,
+    relationships,
+    marriages,
+    relatives,
+    facts,
     category,
   } = request.body;
 
   pool.query(
-    "INSERT INTO celebrities (name, url, profession, dob, physical_body_info,family_info, education, category) VALUES ($1, $2, $3, $4, $5, $6 , $7, $8)",
+    "INSERT INTO celebrities (name, url, profile_pic,  citizenship,    gender,    type,    languages,    birth,    personal,    religion,    hobbies,    profession,    family,    education,    relationships,    marriages,    relatives,    facts,    category) VALUES ($1, $2, $3, $4, $5, $6 , $7, $8)",
     [
       name,
       url,
+      profile_pic,
+      citizenship,
+      gender,
+      type,
+      JSON.stringify(languages),
+      JSON.stringify(birth),
+      JSON.stringify(personal),
+      JSON.stringify(religion),
+      JSON.stringify(hobbies),
       JSON.stringify(profession),
-      dob,
-      JSON.stringify(physical_body_info),
-      JSON.stringify(family_info),
+      JSON.stringify(family),
       JSON.stringify(education),
+      JSON.stringify(relationships),
+      JSON.stringify(marriages),
+      JSON.stringify(relatives),
+      JSON.stringify(facts),
       category,
     ],
     (error, results) => {
@@ -70,20 +80,6 @@ const createCelebPage = (request, response) => {
         throw error;
       }
       response.status(200).send(`Celeb added`);
-    }
-  );
-};
-const createUser = (request, response) => {
-  const { name, email } = request.body;
-
-  pool.query(
-    "INSERT INTO users (name, email) VALUES ($1, $2)",
-    [name, email],
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      response.status(201).send(`User added with ID: ${results.insertId}`);
     }
   );
 };
@@ -104,14 +100,14 @@ const updateCelebPage = (request, response) => {
   pool.query(
     "UPDATE celebrities SET name = $1, url = $2, profession = $3, dob = $4, physical_body_info = $5,family_info = $6, education = $7, category = $8 WHERE url = $9",
     [
-        name,
-        url,
-        JSON.stringify(profession),
-        dob,
-        JSON.stringify(physical_body_info),
-        JSON.stringify(family_info),
-        JSON.stringify(education),
-        category,
+      name,
+      url,
+      JSON.stringify(profession),
+      dob,
+      JSON.stringify(physical_body_info),
+      JSON.stringify(family_info),
+      JSON.stringify(education),
+      category,
       urlId,
     ],
     (error, results) => {
@@ -121,31 +117,6 @@ const updateCelebPage = (request, response) => {
       response.status(200).send(`Celeb modified`);
     }
   );
-};
-const updateUser = (request, response) => {
-  const id = parseInt(request.params.id);
-  const { name, email } = request.body;
-
-  pool.query(
-    "UPDATE users SET name = $1, email = $2 WHERE id = $3",
-    [name, email, id],
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      response.status(200).send(`User modified with ID: ${id}`);
-    }
-  );
-};
-const deleteUser = (request, response) => {
-  const id = parseInt(request.params.id);
-
-  pool.query("DELETE FROM users WHERE id = $1", [id], (error, results) => {
-    if (error) {
-      throw error;
-    }
-    response.status(200).send(`User deleted with ID: ${id}`);
-  });
 };
 const deleteCeleb = (request, response) => {
   const name = request.params.name;
@@ -168,8 +139,4 @@ module.exports = {
   createCelebPage,
   updateCelebPage,
   deleteCeleb,
-  getUserById,
-  createUser,
-  updateUser,
-  deleteUser,
 };
