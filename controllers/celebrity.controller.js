@@ -5,7 +5,7 @@ const Celebrity = require("../models/celebrity.model")
 const getCelebrity = async (req, res) => {
     try {
         const celeb_id = req.params.celeb_id;
-        let celeb = await Celebrity.findOne({ celeb_id });
+        let celeb = await Celebrity.find({url: celeb_id });
         // const celeb = await fetchCelebrity(celeb_id);
         res.status(200).json({
             ...celeb
