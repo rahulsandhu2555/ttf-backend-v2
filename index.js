@@ -4,6 +4,8 @@ const app = express();
 const port = 3000;
 const db = require("./queries");
 
+const celebRoute = require( './routes/celebrity.routes');
+
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -13,6 +15,10 @@ app.use(
 app.get("/", (request, response) => {
   response.json({ info: "Node.js, Express, and Postgres API" });
 });
+
+// routes
+app.use("/celebrity", celebRoute);
+
 app.get("/celeb/:name", db.getCelebByName);
 app.post("/celeb", db.createCelebPage);
 app.put("/celeb/:name", db.updateCelebPage);
