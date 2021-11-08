@@ -16,8 +16,8 @@ const getCelebrity = async (req, res) => {
 };
 
 const addCelebrity = async (req, res) => {
-    if (!req.body.title) {
-        res.status(400).send({ message: "Content can not be empty!" });
+    if (!req.body.url) {
+        res.status(400).send({ message: "Url can not be empty!" });
         return;
     }
 
