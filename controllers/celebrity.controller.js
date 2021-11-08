@@ -15,6 +15,34 @@ const getCelebrity = async (req, res) => {
     }
 };
 
+const addCelebrity = async (req, res) => {
+    if (!req.body.title) {
+        res.status(400).send({ message: "Content can not be empty!" });
+        return;
+    }
+
+    // Create a Tutorial
+    const celebrity = new Celebrity({
+        name: req.body.name,
+        url: req.body.url,
+        profile_pic: req.body.profile_pic
+    });
+
+    // Save Tutorial in the database
+    celebrity
+        .save(celebrity)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while creating the Tutorial."
+            });
+        });
+}
+
+
 // const fetchSubs = async (req, res, next) => {
 //     try {
 //         const tmdb_id = req.params.tmdb_id;
@@ -41,4 +69,4 @@ const getSub = async (req, res, next) => {
     }
 };
 
-module.exports = { getCelebrity, getSub };
+module.exports = { getCelebrity, getSub, addCelebrity };

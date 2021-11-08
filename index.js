@@ -29,3 +29,4 @@ app.get("/users", db.getUsers);
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });
+process.on("SIGINT", () => process.exit(1));
