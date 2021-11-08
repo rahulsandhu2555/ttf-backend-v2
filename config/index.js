@@ -14,3 +14,5 @@ const config = {
     // googleSecret : process.env.GOOGLE_SECRET,
     // TMDBApiKey : process.env.TMDB_API_KEY
 }
+
+module.exports = config
