@@ -6,8 +6,8 @@ const config = {
     mongoOptions: {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true,
+        // useFindAndModify: false,
+        // useCreateIndex: true,
     },
     // jwtSecret: process.env.JWT_SECRET,
     // googleIdClient : process.env.GOOGLE_ID_CLIENT,
