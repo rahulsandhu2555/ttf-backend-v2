@@ -5,13 +5,76 @@ const Celebrity = require("../models/celebrity.model")
 const getCelebrity = async (req, res) => {
     try {
         const celeb_id = req.params.celeb_id;
-        let celeb = await Celebrity.find({url: celeb_id });
-        // const celeb = await fetchCelebrity(celeb_id);
+        let celeb = await Celebrity.findOne({url: celeb_id }).lean();
         res.status(200).json({
             ...celeb
         });
     } catch (error) {
         res.json([{ msg: error.message }]);
+    }
+};
+const deleteCelebrity = async (req, res) => {
+    try {
+        const celeb_id = req.params.celeb_id;
+        let celeb = await Celebrity.findOneAndDelete({url: celeb_id });
+        if(celeb !== null){
+            res.status(200).json({
+                msg: "Celeb deleted"
+            });
+            return
+        }
+        res.status(200).json({
+            msg: "No celeb found"
+        });
+    } catch (error) {
+        res.json([{ msg: error.message }]);
+    }
+};
+const updateCelebrity = async (req, res) => {
+    try {
+        let celeb = await Celebrity.findOneAndUpdate({url: req.body.url },
+            {
+                name: req.body.name,
+                url: req.body.url,
+                profile_pic: req.body.profile_pic,
+                citizenship: req.body.citizenship,
+                gender: req.body.gender,
+                type: req.body.type,
+                languages: req.body.languages,
+                birth: req.body.birth,
+                personal: req.body.personal,
+                religion: req.body.religion,
+                hobbies: req.body.hobbies,
+                profession: req.body.profession,
+                family: req.body.family,
+                education: req.body.education,
+                relationships: req.body.relationships,
+                marriages: req.body.marriages,
+                relatives: req.body.relatives,
+                facts: req.body.facts,
+                category: req.body.category
+            }
+            ).lean();
+        res.status(200).json({
+            msg: "Celeb updated!"
+        });
+    } catch (error) {
+        res.json([{ msg: error.message }]);
+    }
+};
+const checkCelebUrl = async (req, res) => {
+    try {
+        const celeb_id = req.params.url;
+        let celeb = await Celebrity.findOne({url: celeb_id });
+        if(celeb === null){
+            res.json({ valid: true });
+            return
+        }
+        res.status(200).json({
+            valid: false
+        });
+    } catch (error) {
+        res.json({ valid: false });
     }
 };
 
@@ -20,12 +83,33 @@ const addCelebrity = async (req, res) => {
         res.status(400).send({ message: "Url can not be empty!" });
         return;
     }
+    let celeb = await Celebrity.findOne({url: req.body.url });
+    if(celeb !== null){
+        res.status(400).json({ msg: 'Check Url' });
+        return
+    }
 
     // Create a Tutorial
     const celebrity = new Celebrity({
         name: req.body.name,
         url: req.body.url,
-        profile_pic: req.body.profile_pic
+        profile_pic: req.body.profile_pic,
+        citizenship: req.body.citizenship,
+        gender: req.body.gender,
+        type: req.body.type,
+        languages: req.body.languages,
+        birth: req.body.birth,
+        personal: req.body.personal,
+        religion: req.body.religion,
+        hobbies: req.body.hobbies,
+        profession: req.body.profession,
+        family: req.body.family,
+        education: req.body.education,
+        relationships: req.body.relationships,
+        marriages: req.body.marriages,
+        relatives: req.body.relatives,
+        facts: req.body.facts,
+        category: req.body.category
     });
 
     // Save Tutorial in the database
@@ -69,4 +153,4 @@ const getSub = async (req, res, next) => {
     }
 };
 
-module.exports = { getCelebrity, getSub, addCelebrity };
+module.exports = { getCelebrity, getSub, addCelebrity, checkCelebUrl,updateCelebrity, deleteCelebrity };

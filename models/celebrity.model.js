@@ -123,7 +123,8 @@ const celebritySchema = new mongoose.Schema(
         ],
         facts: [String],
         category: String
-    }
+    },
+    { typeKey: '$type' }
 );
 
 module.exports=  mongoose.model("celebrities", celebritySchema);
