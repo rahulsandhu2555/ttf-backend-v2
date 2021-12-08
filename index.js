@@ -4,6 +4,7 @@ const app = express();
 const port = 3000;
 const db = require("./queries");
 const celebRoute = require( './routes/celebrity.routes');
+const movieRoute = require('./routes/movie.routes')
 const connectDB = require("./config/connectDB");
 
 connectDB();
@@ -19,6 +20,7 @@ app.get("/", (request, response) => {
 
 // routes
 app.use("/celebrity", celebRoute);
+app.use("/movie", movieRoute);
 
 app.get("/celeb/:name", db.getCelebByName);
 app.post("/celeb", db.createCelebPage);
