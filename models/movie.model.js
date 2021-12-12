@@ -51,16 +51,14 @@ const movieSchema = new mongoose.Schema(
       medium: { png: String, jpg: String, webp: String },
       large: { png: String, jpg: String, webp: String },
     },
-    rating: [
-      { imdb: Number },
-      { bms: String },
-      { rottenTomato: String },
-      {
+    rating: {
+      imdb: Number,
+      bms: String,
+      rottenTomato: String,
         critics: [
           { critic: String, comment: String, date: Date, source: String, url: String }
-        ],
-      },
     ],
+    },
     cost_collection: {
       budget: String,
       collection: {
