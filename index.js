@@ -17,10 +17,10 @@ app.use(
     extended: true,
   })
 );
+app.options('*', cors());
 app.get("/", (request, response) => {
   response.json({ info: "Node.js, Express, and Postgres API" });
 });
-app.options('*', cors());
 // routes
 app.use("/celebrity", celebRoute);
 app.use("/movie", movieRoute);
