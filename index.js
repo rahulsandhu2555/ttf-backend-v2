@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require('cors');
+// const cors = require('cors');
 const bodyParser = require("body-parser");
 const app = express();
 const port = 3000;
@@ -8,7 +8,7 @@ const celebRoute = require( './routes/celebrity.routes');
 const movieRoute = require('./routes/movie.routes')
 const connectDB = require("./config/connectDB");
 
-app.use(cors());
+// app.use(cors());
 
 connectDB();
 app.use(bodyParser.json());
@@ -17,7 +17,7 @@ app.use(
     extended: true,
   })
 );
-app.options('*', cors());
+// app.options('*', cors());
 app.get("/", (request, response) => {
   response.json({ info: "Node.js, Express, and Postgres API" });
 });
