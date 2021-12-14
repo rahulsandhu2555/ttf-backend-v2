@@ -16,6 +16,7 @@ const getMovie = async (req, res) => {
 
 const addMovie = async (req, res) => {
     try {
+        // console.log(req)
         if (!req.body.url) {
             res.status(400).send({ message: "Url can not be empty!" });
             return;
@@ -52,6 +53,7 @@ const addMovie = async (req, res) => {
                 res.send(data);
             })
             .catch(err => {
+                console.log(err)
                 res.status(500).send({
                     message:
                         err.message || "Some error occurred while adding the movie."
@@ -59,6 +61,7 @@ const addMovie = async (req, res) => {
             });
 
     } catch (error) {
+        console.log(error);
         res.json([{ msg: error.message }]);
     }
 };

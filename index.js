@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 const bodyParser = require("body-parser");
 const app = express();
 const port = 3000;
@@ -6,6 +7,8 @@ const db = require("./queries");
 const celebRoute = require( './routes/celebrity.routes');
 const movieRoute = require('./routes/movie.routes')
 const connectDB = require("./config/connectDB");
+
+app.use(cors());
 
 connectDB();
 app.use(bodyParser.json());
